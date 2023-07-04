@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>cashbook</title>
+<title>cashbookOne</title>
 <!-- Latest compiled and minified CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -15,14 +15,13 @@
 <body>
 	<div class="container">
 		<h1>${targetYear}년 ${targetMonth+1}월 ${targetDate}일</h1>
-		<a href="${pageContext.request.contextPath}/calendar" class="btn btn-success btn-block">이전으로</a>
-		<a href="${pageContext.request.contextPath}/logout" class="btn btn-success btn-block">로그아웃</a>
-		<a href="${pageContext.request.contextPath}/memberOne" class="btn btn-success btn-block">회원정보</a>
+		<a href="${pageContext.request.contextPath}/calendar" class="btn btn-dark btn-block">이전으로</a>
+		<a href="${pageContext.request.contextPath}/addCashbook?cashbookDate=${cashbookDate}" class="btn btn-dark btn-block">가계부 추가</a>
 		<table class="table table-bordered">
 		<tr>
-			<th class="table-success">금액</th>
-			<th class="table-success">메모</th>
-			<th class="table-success">수정</th>
+			<th class="table-dark">금액</th>
+			<th class="table-dark">메모</th>
+			<th class="table-dark">수정</th>
 		</tr>
 		<c:forEach var="c" items="${list}">
 			<tr>

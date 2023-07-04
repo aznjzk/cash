@@ -102,48 +102,38 @@ public class CashbookDao {
 		return list;
 	}
 	
-	 public int[] insertCashbook(Cashbook cashbook) {
-		 int[] rowAndKey = new int[2]; 
-	      Connection conn = null;
-	      PreparedStatement stmt = null;
-	      ResultSet rs = null; // 입력후 생성된 키값 반환
-	      try {
-	         String driver = "org.mariadb.jdbc.Driver";
-	         String dbUrl = "jdbc:mariadb://127.0.0.1:3306/cash";
-	         String dbUser = "root";
-	         String dbPw = "java1234";
-	         Class.forName(driver);
-	         conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
-	         String sql = "INSERT INTO"
-	               + " cashbook(member_id, category, cashbook_date, price, memo, updatedate, createdate)"
-	               + " VALUES(?,?,?,?,?,NOW(),NOW())";
-	         stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-	         stmt.setString(1, cashbook.getMemberId());
-	         stmt.setString(2, cashbook.getCategory());
-	         stmt.setString(3, cashbook.getCashbookDate());
-	         stmt.setInt(4, cashbook.getPrice());
-	         stmt.setString(5, cashbook.getMemo());
-	         // 배열 첫번째 : 영향받은 행값(row) 저장
-	         rowAndKey[0] = stmt.executeUpdate();
-	         if(rowAndKey[0] == 1) {
-		         rs = stmt.getGeneratedKeys();
-		         int cashbookNo = 0;
-		         if(rs.next()) {
-		            cashbookNo = rs.getInt(1);
-		         }
-		         rowAndKey[1] = cashbookNo;
-	         }
-	      } catch(Exception e) {
-	         e.printStackTrace();
-	      } finally {
-	         try {
-	            rs.close();
-	            stmt.close();
-	            conn.close();
-	         }catch(Exception e2) {
-	            e2.printStackTrace();
-	         }
-	      }
-	      return rowAndKey;
-	   }
+	public int insertCashbook(Cashbook cashbook) {
+		int cashbookNo = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null; // 입력후 생성된 키값 반환
+		try {
+			String driver = "org.mariadb.jdbc.Driver";
+			String dbUrl = "jdbc:mariadb://127.0.0.1:3306/cash";
+			String dbUser = "root";
+			String dbPw = "java1234";
+			Class.forName(driver);
+			conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
+			String sql = "INSERT INTO"
+					+ " cashbook(member_id, category, cashbook_date, price, memo, updatedate, createdate)"
+					+ " VALUES(?,?,?,?,?,NOW(),NOW())";
+			stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			int row = stmt.executeUpdate();
+			rs = stmt.getGeneratedKeys();
+			if(rs.next()) {
+				cashbookNo = rs.getInt(1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return cashbookNo;
+	}
 }

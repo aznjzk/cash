@@ -10,19 +10,29 @@
 	<form method="post" action="${pageContext.request.contextPath}/addCashbook">
 		<table border="1">
 			<tr>
-				<td>날짜</td>
+				<th>아이디</th>
+				<td>${memberId}</td>
+			</tr>
+			<tr>
+				<th>날짜</th>
 				<td><input type="date" name="cashbookDate" value="${cashbookDate}" readonly="readonly"></td>
 			</tr>
 			<tr>
-				<td>카테고리</td>
-				<td><input type="text" name="category"></td>
+				<th>수입/지출</th>
+				<td>
+					<select name="category">
+						<option>=== 선택하세요 ===</option>
+						<option value="수입">수입</option>
+						<option value="지출">지출</option>
+					</select>
+				</td>
 			</tr>
 			<tr>
-				<td>금액</td>
+				<th>금액</th>
 				<td><input type="text" name="price"></td>
 			</tr>
 			<tr>
-				<td>메모</td>
+				<th>메모</th>
 				<td><input type="text" name="memo"></td>
 			</tr>
 		</table>
