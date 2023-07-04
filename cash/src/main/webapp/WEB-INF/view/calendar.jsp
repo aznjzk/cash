@@ -46,10 +46,9 @@
 				</c:if>
 				
 				<c:if test="${!(d < 1 || d > lastDate)}">
-					<td>
+					<td onclick="location.href='${pageContext.request.contextPath}/cashbookOne?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${d}'">
 					<div>${d}</div>
 						<c:forEach var="c" items="${list}">
-							<a href="${pageContext.request.contextPath}/cashbookOne?cashbookDate=${c.cashbookDate}">
 							<c:if test="${d == fn:substring(c.cashbookDate,8,10)}">
 								<div>
 									<c:if test="${c.category == '수입'}">
@@ -59,7 +58,7 @@
 										<span style="color:red;">-${c.price}</span>
 									</c:if>
 								</div>
-							</c:if></a>
+							</c:if>
 						</c:forEach>
 					</td>
 				</c:if>

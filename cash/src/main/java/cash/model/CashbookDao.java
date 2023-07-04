@@ -60,19 +60,21 @@ public class CashbookDao {
 		return list;
 	}
 	
-	public List<Cashbook> selectCashbookListByDate(String memberId, String cashbookDate){
+	public List<Cashbook> selectCashbookListByDate(String memberId, int targetYear, int targetMonth, int targetDate){
 		List<Cashbook> list = new ArrayList<Cashbook>();
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT cashbook_no cashbookNo, category, price, memo, cashbook_date cashbookDate, updatedate, createdate FROM cashbook WHERE member_id = ? AND cashbook_date = ? ORDER BY cashbook_date ASC";
+		String sql = "SELECT cashbook_no cashbookNo, category, price, memo, cashbook_date cashbookDate, updatedate, createdate FROM cashbook WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? AND DAY(cashbook_date) = ? ORDER BY cashbook_date ASC";
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 		    stmt.setString(1, memberId);
-	        stmt.setString(2, cashbookDate);
+	        stmt.setInt(2, targetYear);
+	        stmt.setInt(3, targetMonth);
+	        stmt.setInt(4, targetDate);
 	        rs = stmt.executeQuery();
 	        System.out.println(stmt);
 	        while(rs.next()) {
