@@ -72,7 +72,6 @@ public class AddCashbookController extends HttpServlet {
 				memo += w + " ";
 			}
 		}
-		
 		System.out.println(memberId + " <-- AddCashbookController memberId");
 		System.out.println(category + " <-- AddCashbookController category");
 		System.out.println(cashbookDate + " <-- AddCashbookController cashbookDate");

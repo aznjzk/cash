@@ -16,12 +16,12 @@
 	<div class="container">
 		<h1>${targetYear}년 ${targetMonth+1}월 ${targetDate}일</h1>
 		<a href="${pageContext.request.contextPath}/calendar" class="btn btn-dark btn-block">이전으로</a>
-		<a href="${pageContext.request.contextPath}/addCashbook?cashbookDate=${cashbookDate}" class="btn btn-dark btn-block">가계부 추가</a>
+		<a href="${pageContext.request.contextPath}/addCashbook?cashbookDate=${targetYear}-${targetMonth < 10 ? '0' : ''}${targetMonth+1}-${targetDate < 10 ? '0' : ''}${targetDate}" class="btn btn-dark btn-block">가계부 추가</a>
 		<table class="table table-bordered">
 		<tr>
 			<th class="table-dark">금액</th>
 			<th class="table-dark">메모</th>
-			<th class="table-dark">수정</th>
+			<th class="table-dark">수정일</th>
 		</tr>
 		<c:forEach var="c" items="${list}">
 			<tr>

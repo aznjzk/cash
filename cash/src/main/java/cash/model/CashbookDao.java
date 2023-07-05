@@ -118,6 +118,13 @@ public class CashbookDao {
 					+ " cashbook(member_id, category, cashbook_date, price, memo, updatedate, createdate)"
 					+ " VALUES(?,?,?,?,?,NOW(),NOW())";
 			stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			// ? 5개
+			stmt.setString(1, cashbook.getMemberId());
+	        stmt.setString(2, cashbook.getCategory());
+	        stmt.setString(3, cashbook.getCashbookDate());
+	        stmt.setInt(4, cashbook.getPrice());
+	        stmt.setString(5, cashbook.getMemo());
+			
 			int row = stmt.executeUpdate();
 			rs = stmt.getGeneratedKeys();
 			if(rs.next()) {
